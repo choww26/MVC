@@ -1,0 +1,32 @@
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div>
+    <h2>所有水果</h2>
+    <ul id="Q" />
+    <input type="text" id="S" size="5" />
+    <input type="button" value="搜尋"
+           onclick="find();" />
+    <p id="Z"/>
+
+</div>
+<script>
+    var uri = 'api/Product';
+    $(document).ready(function (){
+        $.getJSON(uri)
+            .done(function (data) {
+                $.each(data, function (key, item) {
+                    $('<li>', { text: formatItem(item) }).appendTo($('#Q'));
+                });
+            });
+    });
+    function formatItem(item) {
+        return item.Name + ':$' + item.Price +', 重量 '+ item.Weight + '公斤';
+    };
+    function find() {
+        var id = $('#S').val();
+        $.getJSON(uri + '/' + id)
+            .done(function (data) { $('#Z').text(formatItem(data)); })
+            .fail(function (jqXHR, textStatus, err) {
+                $('#Z').text('Error' + err)
+            })
+    }
+</script>
