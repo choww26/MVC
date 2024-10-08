@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebApplication1.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+     
+    </asp:PlaceHolder>
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="A">
+        <input type="radio" name="x" v-model="sex" value="先生" />男
+        <input type="radio" name="x" v-model="sex" value="小姐" />女
+        <input type="text" v-model="name.first" placeholder="姓" />
+        <input type="text" v-model="name.second" placeholder="名" />
+        <br />
+        <button @click ="count++">訂購</button>
+        <button @click ="count=0">取消</button>
+        <br />
+        歡迎{{name.first}}{{name.second}}{{sex}} 下方填訂購{{count}}份
+    </div>
+    <script>
+        /* new Vue({ el: '#A', data: {name: '陳大頭'} }); 二代*/
+        Vue.createApp({ data() { return { count:0, sex:'', name: { first: '', second: '' } }; } }).mount('#A');
+    </script>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+          
+        </asp:ScriptManager>
+
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+          
+    </form>
+    
+</body>
+</html>
